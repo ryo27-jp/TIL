@@ -6,10 +6,12 @@
 ### Chapter6
 * [Exeptionクラス](#anchor5)
 * [raiseメソッド](#anchor6)
-* [rescue_form](#anchor7)
+* [rescue_from](#anchor7)
 * [productionモードのログを見る(tail)](#anchor8)
 * [requestオブジェクト](#anchor9)
-
+* [ActiveSupport::Concern](#anchor10)
+### Chapter7
+* [LOWER関数](#anchor11)
 
 
 
@@ -67,7 +69,7 @@ raise 例外のクラス名, 例外を説明するメッセージ(省略可)
 ```
 
 <a id="anchor7"></a>
-### <a href="#anchor7">rescue_form</a>
+### <a href="#anchor7">rescue_from</a>
 
 アクション内で発生した例外の処理方法を簡単に指定できるメソッド。
 ```
@@ -98,3 +100,33 @@ pathメソッド,urlメソッド,ipメソッドなどを持っている。
 ```
 "あなたのIPアドレス(#{request.ip})からは利用できません。"
 ```
+
+<a id="anchor10"></a>
+### <a href="#anchor10">ActiveSupport::Concern</a>  
+extend ActiveSupport::Concern  
+concernsディレクトリに置くモジュールには必ずこの記述が必要になる。  
+モジュールに２つの性質が加えられる
+
+１,includeメソッドが使えるようになる  
+```
+  included do
+    rescue_from StandardError,with: :rescue500
+    rescue_from ApplicationController::Forbidden, with: :rescue403
+    rescue_from ApplicationController::IpAddressRejected, with: :rescue403
+    rescue_from ActiveRecord::RecordNotFound, with: :rescue404
+  end
+```
+ブロック内のコードがモジュールを読み込んだクラスの文脈で評価される。  
+
+2,ClassMethods  
+サブクラスとしてClassMethodsというクラスを定義しておくと  
+モジュールを読み込んだクラスのクラスメソッドとして取り込まれる。  
+参考：https://qiita.com/h-shima/items/d772b4cbe7368ddb8255
+
+<a id="anchor11"></a>
+### <a href="#anchor11">LOWER関数</a>
+SQLの関数で引数の文字列を小文字のアルファベットに変換して返す。  
+```
+    add_index :staff_members,"LOWER(email)",unique: true
+```
+今回の場合メールアドレスの大文字、小文字を区別しない為に使われている。
