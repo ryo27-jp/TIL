@@ -12,6 +12,12 @@
 * [ActiveSupport::Concern](#anchor10)
 ### Chapter7
 * [LOWER関数](#anchor11)
+* [シードデータ](#anchor12)
+* [遅延初期化](#anchor13)
+* [遅延初期化](#anchor14)
+* [asオプション](#anchor15)
+
+
 
 
 
@@ -130,3 +136,30 @@ SQLの関数で引数の文字列を小文字のアルファベットに変換�
     add_index :staff_members,"LOWER(email)",unique: true
 ```
 今回の場合メールアドレスの大文字、小文字を区別しない為に使われている。
+
+<a id="anchor12"></a>
+### <a href="#anchor12">シードデータ</a>
+Railsアプリケーションを正常に機能させる為に予めDBへ投入しておくデータ。
+
+<a id="anchor13"></a>
+### <a href="#anchor13">遅延初期化</a>
+```
+  def current_staff_member
+      if session[:staff_member_id]
+        @current_staff_member || = StaffMember.find_by(id:session[:staff_member_id])
+      end
+    end
+```
+
+<a id="anchor14"></a>
+### <a href="#anchor14">helper_method</a>
+  引数に指定したシンボルと同名のメソッドをヘルパーメソッドとして登録するメソッド。
+
+  <a id="anchor15"></a>
+### <a href="#anchor15">asオプション</a>
+```
+  namespace :staff do
+    root "top#index"
+    get "login" => "sessions#new", as: :login
+```
+ルーティングに名前を付ける。この場合:staff_loginというシンボルを用いてURLパスを参照できるようになる。
