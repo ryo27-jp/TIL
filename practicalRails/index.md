@@ -163,3 +163,15 @@ Railsアプリケーションを正常に機能させる為に予めDBへ投入�
     get "login" => "sessions#new", as: :login
 ```
 ルーティングに名前を付ける。この場合:staff_loginというシンボルを用いてURLパスを参照できるようになる。
+
+  <a id="anchor15"></a>
+### <a href="#anchor15">リモートフォーム</a>
+
+  <a id="anchor15"></a>
+### <a href="#anchor15">フォームオブジェクト</a>
+
+  <a id="anchor15"></a>
+### <a href="#anchor15">サービスオブジェクト</a>
+  <a id="anchor15"></a>
+### <a href="#anchor15">ファクトリー</a>
+定型的なモデルオブジェクトを生成するオブジェクトのこと。FactoryBot用語
