@@ -16,6 +16,15 @@
 * [遅延初期化](#anchor13)
 * [遅延初期化](#anchor14)
 * [asオプション](#anchor15)
+### Chapter8
+* [ファクトリー](#anchor16)
+* [resource](#anchor17)
+* [制約](#anchor18)
+* [raw](#anchor19)
+* [strftime](#anchor20)
+* [required: true](#anchor21)
+* [assign_attributes](#anchor22)
+
 
 
 
@@ -164,14 +173,46 @@ Railsアプリケーションを正常に機能させる為に予めDBへ投入�
 ```
 ルーティングに名前を付ける。この場合:staff_loginというシンボルを用いてURLパスを参照できるようになる。
 
-  <a id="anchor15"></a>
-### <a href="#anchor15">リモートフォーム</a>
-
-  <a id="anchor15"></a>
-### <a href="#anchor15">フォームオブジェクト</a>
-
-  <a id="anchor15"></a>
-### <a href="#anchor15">サービスオブジェクト</a>
-  <a id="anchor15"></a>
-### <a href="#anchor15">ファクトリー</a>
+  <a id="anchor16"></a>
+### <a href="#anchor16">ファクトリー</a>
 定型的なモデルオブジェクトを生成するオブジェクトのこと。FactoryBot用語
+<a id="anchor17"></a>
+### <a href="#anchor17">resourceメソッド</a>
+単数リソースの基本アクションに対するルーティングを一括で設定できる。
+
+  <a id="anchor18"></a>
+### <a href="#anchor18">制約</a>
+(constraints)HTTPリクエストのそれ以外の属性（ホスト名、ポート番号等）によってルーティングを変更する為の条件の事。
+
+  <a id="anchor19"></a>
+### <a href="#anchor19">ヘルパーメソッドrawメソッド</a>
+エスケープ処理を抑制する。
+```
+        <td class = "boolean"><%= m.suspend? ? raw("&#x2611;") : raw("&#x2610") %></td>
+```
+rawメソッドを使わない場合＆がエスケープされてしまう。
+
+  <a id="anchor20"></a>
+### <a href="#anchor20">strftimeメソッド</a>
+Dateクラスのインスタンスメソッドで日付を指定したフォーマットにするメソッド。
+```
+m.start_date.strftime("%Y/%m/%d") 
+```
+
+  <a id="anchor21"></a>
+### <a href="#anchor21">required: true</a>
+view側(ブラウザ)で入力を必須に指定する事ができる。
+参考:http://www.htmq.com/html5/input_required.shtml
+
+  <a id="anchor22"></a>
+### <a href="#anchor22">assign_attributes</a>
+
+複数のオブジェクトの属性をまとめて変更する。  
+DBには保存されない。
+```
+    @astaff_member.assign_attributes(params[:staff_member])
+    ＃同じ
+    @astaff_member.attributes = (params[:staff_member])
+```
+モデルオブジェクトのattributes=メソッドのエイリアス
+
